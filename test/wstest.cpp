@@ -126,8 +126,12 @@ main( int argc, char *argv[] )
 
   mycb.host = get_arg( argc, argv, 1, "-c", "127.0.0.1" ),
   mycb.sym  = get_arg( argc, argv, 1, "-s", "AMD" ),
-  mycb.api  = get_arg( argc, argv, 1, "-a", "8sie8b7EHvtAmRLfqe8dgavoFbG3imAr" );
+  mycb.api  = get_arg( argc, argv, 1, "-a", NULL );
 
+  if ( mycb.api == NULL ) {
+    fprintf( stderr, "need api key\n" );
+    return 1;
+  }
   VarHT ht;
   if ( EvTcpConnection::connect( client, mycb.host, port,
                             DEFAULT_TCP_CONNECT_OPTS | OPT_CONNECT_NB ) != 0 )
